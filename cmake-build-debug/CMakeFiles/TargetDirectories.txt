@@ -1,0 +1,3 @@
+/home/true/CLionProjects/SkittlesSim/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/true/CLionProjects/SkittlesSim/cmake-build-debug/CMakeFiles/SkittlesSim.dir
+/home/true/CLionProjects/SkittlesSim/cmake-build-debug/CMakeFiles/edit_cache.dir
