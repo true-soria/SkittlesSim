@@ -99,10 +99,12 @@ int main() {
 
 
         // write final result to file
-/*#pragma omp critical
+        /*
+#pragma omp critical
         {
 
-        };*/
+        };
+        */
 
         // Example output:
 
