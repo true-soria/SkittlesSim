@@ -7,7 +7,15 @@ The average must not allow for 3 things:
  - averaging 0 values
  - impricision
 
-  If we assume it takes on average 400 bags to run the simulation, through traditional averaging when getting the sum we will overflow at about 5 million simulations using an int. This can be extended using a ulong, but we don't know how many sims can run in 2 minutes. A double would remove this issue, but precision may be lost.
+If we assume it takes on average 400 bags to run the simulation, through traditional averaging when getting the sum we will overflow at about 5 million simulations using an int. This can be extended using a ulong, but we don't know how many sims can run in 2 minutes. A double would remove this issue, but precision may be lost.
+  
+We have two options for storing results:
+
+option 1:
+store results to an outside array where each index is specific to a sim. This leads to no race conditions, but it does leave some indexes blank while they are still processing. This is the most accurate while the number of simulations is still small, but it becomes slower and runs into memory issues when the number of sims scales higher. 
+
+option 2:
+store results to an outside array where each index represents a result and its value a frequency distribution. This will lead to an array with a static and likely guaranteed size. Memory will be a minimal issue. It ideally then has a static efficiency of O(n) with very minimal computation in every step. This will take a lot of brain power, if it's even possible to properly implement.
 
 ## Issue 2: Random
 "Random" number generation is based on an algorithm. With no call to srand(), the sequence is constantly the same. Generally, the seed chosen is the current time, but it is possible that while running in parallel two threads will check the time at the same time. We also have access to the Sim number and thread number for random generation. 
