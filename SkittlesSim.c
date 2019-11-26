@@ -6,7 +6,8 @@
 #include "SkittlesSim.h"
 
 #define NUM_OF_SKITTLES 60
-#define SIMS_ALLOWED 1000
+#define SIMS_ALLOWED 10
+#define SUB_AVG_SIZE 4
 
 int main() {
 
@@ -24,15 +25,17 @@ int main() {
         // set up dummy first node for chain of skittles bags
         SKITTLES_BAG *head = calloc(sizeof(SKITTLES_BAG), 1);
         bool dupeFound = false;
+        ushort duplicate = 0;
         srand(simNum);
 
         // finish after simNum bags
-        for (int currentBagNum = 1; !dupeFound ; ++currentBagNum) {
+        for (ushort currentBagNum = 1; !dupeFound ; ++currentBagNum) {
 
             // generate a bag of skittles
             // make a skittles bag structure
             // initialize to "aaaaa"
             // set bag number to currentBagNum
+
             SKITTLES_BAG *newBag = calloc(sizeof(SKITTLES_BAG), 1);
             newBag->bagNumber = currentBagNum;
             strcpy(newBag->bag, "aaaaa\0");
@@ -53,15 +56,58 @@ int main() {
             // if so, contribute the number of bags it took to the simResults array and quit this sim
             while (!dupeFound && otherBag->nextBag != NULL)
             {
-                if (strcmp(head->bag, otherBag->bag) == 0)
+                if (otherBag->bagNumber == (simNum + 1))
+                // if (strcmp(head->bag, otherBag->bag) == 0) // uncomment later
                 {
                     simResults[simNum] = currentBagNum;
                     dupeFound = true;
+                    duplicate = otherBag->bagNumber;
                 }
             }
         } // END of bag generation/comparison
 
+        // Calculate Current Average
+
+        /* this version is the fastest, but has a hard time omitting 0s
+        double average = 0;
+
+        for (int j = 0; j < simNum; ++j) {
+            if (simResults[j] == 0)
+            {
+                average += (average / simNum);
+            } else
+            {
+                average += (simResults[j] / simNum);
+            }
+        }
+        */
+
+        double average = 0;
+        double subAverage = 0;
+        int subAverageCount = 0;
+
+
+        for (int j = 0; j < simNum; ++j) {
+            if (simResults[j] == 0)
+            {
+                average += (average / simNum);
+            } else
+            {
+                average += (simResults[j] / simNum);
+            }
+        }
+
+
         // write final result to file
+/*#pragma omp critical
+        {
+
+        };*/
+
+        // Example output:
+
+        printf("Simulation %u complete: Bags %u and %u were duplicates\n"
+               "\tCurrent Avg: %lf\n", simNum, duplicate, head->bagNumber, average);
 
         // free bag memory allocation
 
