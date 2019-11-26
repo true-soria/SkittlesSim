@@ -20,7 +20,7 @@ int main() {
 // #pragma omp parallel for
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
-    for (int simNum = 0; true ; ++simNum) {
+    for (ulong simNum = 0; true ; ++simNum) {
 
         // set up dummy first node for chain of skittles bags
         SKITTLES_BAG *head = calloc(sizeof(SKITTLES_BAG), 1);
@@ -62,40 +62,25 @@ int main() {
                     simResults[simNum] = currentBagNum;
                     dupeFound = true;
                     duplicate = otherBag->bagNumber;
-                }
+                } else otherBag = otherBag->nextBag;
             }
         } // END of bag generation/comparison
 
         // Calculate Current Average
 
-        /* this version is the fastest, but has a hard time omitting 0s
         double average = 0;
+        ulong averageCount = 0;
 
-        for (int j = 0; j < simNum; ++j) {
+
+        for (ulong j = 0; j < simNum; ++j) {
             if (simResults[j] == 0)
             {
-                average += (average / simNum);
-            } else
-            {
-                average += (simResults[j] / simNum);
+                average += simResults[j];
+                averageCount ++;
             }
         }
-        */
 
-        double average = 0;
-        double subAverage = 0;
-        int subAverageCount = 0;
-
-
-        for (int j = 0; j < simNum; ++j) {
-            if (simResults[j] == 0)
-            {
-                average += (average / simNum);
-            } else
-            {
-                average += (simResults[j] / simNum);
-            }
-        }
+        average /= averageCount;
 
 
         // write final result to file
@@ -108,7 +93,7 @@ int main() {
 
         // Example output:
 
-        printf("Simulation %u complete: Bags %u and %u were duplicates\n"
+        printf("Simulation %lu complete: Bags %u and %u were duplicates\n"
                "\tCurrent Avg: %lf\n", simNum, duplicate, head->bagNumber, average);
 
         // free bag memory allocation
