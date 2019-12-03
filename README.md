@@ -22,3 +22,8 @@ store results to an outside array where each index represents a result and its v
 
 ## Issue 3: Memory
 This is going to be a fine line to toe. We will definitely need to free memory at the end of each sim, but that is going to cost time. a necessary loss.
+
+# Update 12/3
+
+## Issue 4: Parallelization
+while many issues have been resolved, the parallelization needs to be worked out. You can't parallelize an infinitely looped for loop. Will need to look into solutions.
