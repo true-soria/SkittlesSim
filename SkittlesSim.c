@@ -5,8 +5,10 @@
 #include <omp.h>
 #include "SkittlesSim.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wmissing-noreturn"
 #define NUM_OF_SKITTLES 60
-#define SIMS_ALLOWED 10000
+#define SIMS_ALLOWED 1000
 
 int main() {
 
@@ -15,79 +17,78 @@ int main() {
      * k then parallelize a simulation of simulations
      */
 
-long double resultOfResults = 0;
+    double resultOfResults = 0;
+    int simSetNum = 0;
 
-#pragma omp parallel for // TODO this doesn't work
-    for (ulong simOfSims = 0; simOfSims < 10 ; ++simOfSims) {
+    while (true) {
+#pragma omp parallel for
+            for (int threadOfSims = 0; threadOfSims < omp_get_num_threads(); ++threadOfSims) {
 
-        double result = 0; // result of SIMS_ALLOWED simulations ran
+                printf("%d\n", omp_get_num_threads());
 
-        // Executes SIMS_ALLOWED number of simulations  and returns the average
-        for (ushort simNum = 0; simNum < SIMS_ALLOWED; ++simNum) {
+                double result = 0; // result of SIMS_ALLOWED simulations ran
 
-            // set up dummy first node for chain of skittles bags
-            SKITTLES_BAG *head = calloc(sizeof(SKITTLES_BAG), 1);
-            bool dupeFound = false;
-            ushort duplicate = 0;
-//            srand(simNum * simOfSims + omp_get_thread_num());
-            srand(simOfSims * simOfSims + simNum);
+                // Executes SIMS_ALLOWED number of simulations  and returns the average
+                for (short simNum = 0; simNum < SIMS_ALLOWED; ++simNum) {
 
-            // finish after simNum bags
-            for (ushort currentBagNum = 1; !dupeFound; ++currentBagNum) {
+                    // set up dummy first node for chain of skittles bags
+                    SKITTLES_BAG *head = calloc(sizeof(SKITTLES_BAG), 1);
+                    bool dupeFound = false;
+                    srand(simNum * threadOfSims + omp_get_thread_num());
 
-                // generate a bag of skittles
-                // make a skittles bag structure
-                // initialize to "aaaaa"
-                // set bag number to currentBagNum
+                    // finish after simNum bags
+                    for (short currentBagNum = 1; !dupeFound; ++currentBagNum) {
 
-                SKITTLES_BAG *newBag = calloc(sizeof(SKITTLES_BAG), 1);
-                newBag->bagNumber = currentBagNum;
-                strcpy(newBag->bag, "aaaaa\0");
+                        // generate a bag of skittles
+                        // make a skittles bag structure
+                        // initialize to "aaaaa"
+                        // set bag number to currentBagNum
 
-                // for each skittle, give it an equal chance to be any color and add it to
-                for (int i = 0; i < NUM_OF_SKITTLES; ++i) {
-                    newBag->bag[(rand() % NUM_OF_FLAVORS)]++;
-                }
+                        SKITTLES_BAG *newBag = calloc(sizeof(SKITTLES_BAG), 1);
+                        strcpy(newBag->bag, "aaaaa\0");
 
-                // add new skittle bag to the current list, then compare
+                        // for each skittle, give it an equal chance to be any color and add it to
+                        for (short i = 0; i < NUM_OF_SKITTLES; ++i) {
+                            newBag->bag[(rand() % NUM_OF_FLAVORS)]++;
+                        }
 
-                newBag->nextBag = head;
-                head = newBag;
+                        // add new skittle bag to the current list, then compare
 
-                SKITTLES_BAG *otherBag = head->nextBag;
+                        newBag->nextBag = head;
+                        head = newBag;
 
-                // check newest bag against all previous bags to see if we've found a duplicate
-                // if so, contribute the number of bags it took to the result and quit this sim
-                while (!dupeFound && otherBag->nextBag != NULL) {
-                    // if (otherBag->bagNumber == (simNum + 1))
-                    if (strcmp(head->bag, otherBag->bag) == 0) // uncomment later
-                    {
-                        result += currentBagNum;
-                        dupeFound = true;
-                        duplicate = otherBag->bagNumber;
-                    } else otherBag = otherBag->nextBag;
-                }
-            } // END of bag generation/comparison
+                        SKITTLES_BAG *otherBag = head->nextBag;
 
-            //prints the sub average after every bag count achieved
-//            printf("    Simulation %lu-%lu complete: Bags %u and %u were duplicates\n"
-//                   "\t    Sub Avg: %lf\n", simOfSims, simNum, duplicate, head->bagNumber,  result / (double)(simNum + 1));
+                        // check newest bag against all previous bags to see if we've found a duplicate
+                        // if so, contribute the number of bags it took to the result and quit this sim
+                        while (!dupeFound && otherBag->nextBag != NULL) {
+                            // if (otherBag->bagNumber == (simNum + 1))
+                            if (strcmp(head->bag, otherBag->bag) == 0) // uncomment later
+                            {
+                                result += currentBagNum;
+                                dupeFound = true;
+                            } else otherBag = otherBag->nextBag;
+                        }
+                    } // END of bag generation/comparison
 
-            // free bag memory allocation
-            SKITTLES_BAG *previousBag;
-            while (head != NULL)
-            {
-                previousBag = head;
-                free(previousBag);
-                head = head->nextBag;
-            }
+                    // free bag memory allocation
+                    SKITTLES_BAG *previousBag;
+                    while (head != NULL) {
+                        previousBag = head;
+                        head = head->nextBag;
+                        free(previousBag);
+                    }
 
-        } // END of SIM
+                } // END of SIM
 
 #pragma omp atomic update
-        resultOfResults += result / SIMS_ALLOWED;
+                resultOfResults += (result / (SIMS_ALLOWED * omp_get_num_threads()));
+            } // END of Thread set of Sims (and parallel section)
 
-
-        printf("Simulation %lu complete:\n\tCurrent Avg: %lf\n", simOfSims,  (double) (resultOfResults / (simOfSims + 1)));
-    } // END of SIM of SIMS
+        simSetNum++;
+        printf("Simulation set %d complete: \n\tCurrent Average: %lf\n\n", simSetNum,
+               (double) (resultOfResults / simSetNum));
+    }
 }
+
+#pragma clang diagnostic pop
