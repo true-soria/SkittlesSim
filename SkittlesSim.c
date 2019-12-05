@@ -6,7 +6,7 @@
 #include "SkittlesSim.h"
 
 #define NUM_OF_SKITTLES 60
-#define SIMS_ALLOWED 1000
+#define SIMS_ALLOWED 10000
 
 int main() {
 
@@ -17,21 +17,20 @@ int main() {
 
 long double resultOfResults = 0;
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
 #pragma omp parallel for // TODO this doesn't work
-    for (ulong simOfSims = 0; simOfSims < SIMS_ALLOWED ; ++simOfSims) {
+    for (ulong simOfSims = 0; simOfSims < 10 ; ++simOfSims) {
 
-        double result = 0;
+        double result = 0; // result of SIMS_ALLOWED simulations ran
 
+        // Executes SIMS_ALLOWED number of simulations  and returns the average
         for (ushort simNum = 0; simNum < SIMS_ALLOWED; ++simNum) {
 
             // set up dummy first node for chain of skittles bags
             SKITTLES_BAG *head = calloc(sizeof(SKITTLES_BAG), 1);
             bool dupeFound = false;
             ushort duplicate = 0;
-            srand(simNum * simOfSims + omp_get_thread_num());
-//            srand(simOfSims * simOfSims + simNum);
+//            srand(simNum * simOfSims + omp_get_thread_num());
+            srand(simOfSims * simOfSims + simNum);
 
             // finish after simNum bags
             for (ushort currentBagNum = 1; !dupeFound; ++currentBagNum) {
@@ -84,12 +83,11 @@ long double resultOfResults = 0;
             }
 
         } // END of SIM
-#pragma omp critical
-        {
-            resultOfResults += result / SIMS_ALLOWED;
-        }
+
+#pragma omp atomic update
+        resultOfResults += result / SIMS_ALLOWED;
+
 
         printf("Simulation %lu complete:\n\tCurrent Avg: %lf\n", simOfSims,  (double) (resultOfResults / (simOfSims + 1)));
     } // END of SIM of SIMS
-#pragma clang diagnostic pop
 }

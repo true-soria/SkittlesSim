@@ -15,7 +15,7 @@ string.h
 -
 stdlib.h
 -
-time.h
+omp.h
 -
 SkittlesSim.h
 /home/true/CLionProjects/SkittlesSim/SkittlesSim.h
