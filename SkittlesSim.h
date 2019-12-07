@@ -4,7 +4,6 @@
 
 #ifndef SKITTLESSIM_SKITTLESSIM_H
 #define SKITTLESSIM_SKITTLESSIM_H
-#define NUM_OF_FLAVORS 5
 
 
 // make a skittles bag node for chain of nodes
