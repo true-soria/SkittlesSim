@@ -1,3 +1,16 @@
+/**
+ * Skittles Sim
+ * by True Soria and Nathan Moreno
+ * final version: 12/8/19
+ *
+ * This program simulates the process of opening several
+ * bags of Skittles until you find to that match... about
+ * 23000 times per second. The goal being to find the most
+ * accurate estimate of the average number of bags it takes
+ * to do so. This version is parallelized with OpenMP and
+ * loops forever.
+ */
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
