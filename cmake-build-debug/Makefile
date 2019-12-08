@@ -123,6 +123,19 @@ SkittlesSim/fast:
 	$(MAKE) -f CMakeFiles/SkittlesSim.dir/build.make CMakeFiles/SkittlesSim.dir/build
 .PHONY : SkittlesSim/fast
 
+#=============================================================================
+# Target rules for targets named SkittlesSimSerial
+
+# Build rule for target.
+SkittlesSimSerial: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 SkittlesSimSerial
+.PHONY : SkittlesSimSerial
+
+# fast build rule for target.
+SkittlesSimSerial/fast:
+	$(MAKE) -f CMakeFiles/SkittlesSimSerial.dir/build.make CMakeFiles/SkittlesSimSerial.dir/build
+.PHONY : SkittlesSimSerial/fast
+
 SkittlesSim.o: SkittlesSim.c.o
 
 .PHONY : SkittlesSim.o
@@ -150,6 +163,33 @@ SkittlesSim.c.s:
 	$(MAKE) -f CMakeFiles/SkittlesSim.dir/build.make CMakeFiles/SkittlesSim.dir/SkittlesSim.c.s
 .PHONY : SkittlesSim.c.s
 
+SkittlesSimSerial.o: SkittlesSimSerial.c.o
+
+.PHONY : SkittlesSimSerial.o
+
+# target to build an object file
+SkittlesSimSerial.c.o:
+	$(MAKE) -f CMakeFiles/SkittlesSimSerial.dir/build.make CMakeFiles/SkittlesSimSerial.dir/SkittlesSimSerial.c.o
+.PHONY : SkittlesSimSerial.c.o
+
+SkittlesSimSerial.i: SkittlesSimSerial.c.i
+
+.PHONY : SkittlesSimSerial.i
+
+# target to preprocess a source file
+SkittlesSimSerial.c.i:
+	$(MAKE) -f CMakeFiles/SkittlesSimSerial.dir/build.make CMakeFiles/SkittlesSimSerial.dir/SkittlesSimSerial.c.i
+.PHONY : SkittlesSimSerial.c.i
+
+SkittlesSimSerial.s: SkittlesSimSerial.c.s
+
+.PHONY : SkittlesSimSerial.s
+
+# target to generate assembly for a file
+SkittlesSimSerial.c.s:
+	$(MAKE) -f CMakeFiles/SkittlesSimSerial.dir/build.make CMakeFiles/SkittlesSimSerial.dir/SkittlesSimSerial.c.s
+.PHONY : SkittlesSimSerial.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -157,11 +197,15 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-	@echo "... SkittlesSim"
 	@echo "... edit_cache"
+	@echo "... SkittlesSim"
+	@echo "... SkittlesSimSerial"
 	@echo "... SkittlesSim.o"
 	@echo "... SkittlesSim.i"
 	@echo "... SkittlesSim.s"
+	@echo "... SkittlesSimSerial.o"
+	@echo "... SkittlesSimSerial.i"
+	@echo "... SkittlesSimSerial.s"
 .PHONY : help
 
 

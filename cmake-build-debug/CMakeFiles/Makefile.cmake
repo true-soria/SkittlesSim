@@ -45,4 +45,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/SkittlesSim.dir/DependInfo.cmake"
+  "CMakeFiles/SkittlesSimSerial.dir/DependInfo.cmake"
   )

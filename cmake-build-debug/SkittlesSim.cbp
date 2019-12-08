@@ -27,6 +27,16 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/true/CLionProjects/SkittlesSim/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
 			<Target title="SkittlesSim">
 				<Option output="/home/true/CLionProjects/SkittlesSim/cmake-build-debug/SkittlesSim" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/true/CLionProjects/SkittlesSim/cmake-build-debug"/>
@@ -67,11 +77,41 @@
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="edit_cache">
+			<Target title="SkittlesSimSerial">
+				<Option output="/home/true/CLionProjects/SkittlesSim/cmake-build-debug/SkittlesSimSerial" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/true/CLionProjects/SkittlesSim/cmake-build-debug"/>
-				<Option type="4"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 SkittlesSimSerial"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="SkittlesSimSerial/fast">
+				<Option output="/home/true/CLionProjects/SkittlesSim/cmake-build-debug/SkittlesSimSerial" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/true/CLionProjects/SkittlesSim/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 SkittlesSimSerial/fast"/>
 					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/make -j8 -f &quot;/home/true/CLionProjects/SkittlesSim/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -83,6 +123,10 @@
 		</Unit>
 		<Unit filename="/home/true/CLionProjects/SkittlesSim/SkittlesSim.h">
 			<Option target="SkittlesSim"/>
+			<Option target="SkittlesSimSerial"/>
+		</Unit>
+		<Unit filename="/home/true/CLionProjects/SkittlesSim/SkittlesSimSerial.c">
+			<Option target="SkittlesSimSerial"/>
 		</Unit>
 		<Unit filename="/home/true/CLionProjects/SkittlesSim/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

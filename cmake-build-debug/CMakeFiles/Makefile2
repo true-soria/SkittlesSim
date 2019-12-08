@@ -54,11 +54,13 @@ CMAKE_BINARY_DIR = /home/true/CLionProjects/SkittlesSim/cmake-build-debug
 
 # The main recursive "all" target.
 all: CMakeFiles/SkittlesSim.dir/all
+all: CMakeFiles/SkittlesSimSerial.dir/all
 
 .PHONY : all
 
 # The main recursive "clean" target.
 clean: CMakeFiles/SkittlesSim.dir/clean
+clean: CMakeFiles/SkittlesSimSerial.dir/clean
 
 .PHONY : clean
 
@@ -93,6 +95,33 @@ SkittlesSim: CMakeFiles/SkittlesSim.dir/rule
 CMakeFiles/SkittlesSim.dir/clean:
 	$(MAKE) -f CMakeFiles/SkittlesSim.dir/build.make CMakeFiles/SkittlesSim.dir/clean
 .PHONY : CMakeFiles/SkittlesSim.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/SkittlesSimSerial.dir
+
+# All Build rule for target.
+CMakeFiles/SkittlesSimSerial.dir/all:
+	$(MAKE) -f CMakeFiles/SkittlesSimSerial.dir/build.make CMakeFiles/SkittlesSimSerial.dir/depend
+	$(MAKE) -f CMakeFiles/SkittlesSimSerial.dir/build.make CMakeFiles/SkittlesSimSerial.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/true/CLionProjects/SkittlesSim/cmake-build-debug/CMakeFiles --progress-num=3,4 "Built target SkittlesSimSerial"
+.PHONY : CMakeFiles/SkittlesSimSerial.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/SkittlesSimSerial.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/true/CLionProjects/SkittlesSim/cmake-build-debug/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/SkittlesSimSerial.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/true/CLionProjects/SkittlesSim/cmake-build-debug/CMakeFiles 0
+.PHONY : CMakeFiles/SkittlesSimSerial.dir/rule
+
+# Convenience name for target.
+SkittlesSimSerial: CMakeFiles/SkittlesSimSerial.dir/rule
+
+.PHONY : SkittlesSimSerial
+
+# clean rule for target.
+CMakeFiles/SkittlesSimSerial.dir/clean:
+	$(MAKE) -f CMakeFiles/SkittlesSimSerial.dir/build.make CMakeFiles/SkittlesSimSerial.dir/clean
+.PHONY : CMakeFiles/SkittlesSimSerial.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
