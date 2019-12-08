@@ -16,6 +16,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <omp.h>
+#include <time.h>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
@@ -44,6 +45,7 @@ int main() {
      * every time it is used, the seed is updated using gcc's normal
      * rand() function's algorithm.
      */
+    srand(time(NULL) & 0x7fffffff);
     uint seed[NUM_OF_SEEDS];
     for (int k = 0; k < NUM_OF_SEEDS; ++k) {
         seed[k] = rand();
@@ -128,10 +130,10 @@ int main() {
          */
 
         simSetNum++;
-        printf("Simulation set %d complete:\n",
-                simSetNum);
-        printf("\tSimulations Ran: %d per thread \n\tCurrent Average: %lf\n\tCurrent Time: %lf\n\n",
-                SIMS_ALLOWED * simSetNum,(double) (resultOfResults / simSetNum), omp_get_wtime() - startTime);
+        printf("Simulation set %d complete:\n", simSetNum);
+        printf("\tSimulations Ran: %d per thread \n\tCurrent Average: %Lf\n\tCurrent Time: %lf\n\n",
+                SIMS_ALLOWED * simSetNum,(resultOfResults / simSetNum), omp_get_wtime() - startTime);
+
 //        printf("Simulation set %d complete:\n\tCurrent Average: %lf\n\tCurrent Time: %lf\n\n",
 //               simSetNum, (double) (resultOfResults / simSetNum), omp_get_wtime() - startTime);
     }
